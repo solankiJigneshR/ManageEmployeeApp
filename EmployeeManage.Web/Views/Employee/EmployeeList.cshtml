@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EmployeeWithSalary>
+
+<form method="get">
+    Name: <input type="text" name="name" value="@ViewBag.NameFilter" />
+    Title: <input type="text" name="title" value="@ViewBag.TitleFilter" />
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th><a href="?sortColumn=Name&sortOrder=@(ViewBag.SortOrder == "ASC" ? "DESC" : "ASC")">Name</a></th>
+            <th><a href="?sortColumn=Title&sortOrder=@(ViewBag.SortOrder == "ASC" ? "DESC" : "ASC")">Title</a></th>
+            <th><a href="?sortColumn=Salary&sortOrder=@(ViewBag.SortOrder == "ASC" ? "DESC" : "ASC")">Salary</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.Name</td>
+                <td>@emp.Title</td>
+                <td>@emp.Salary</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @for (int i = 1; i <= 10; i++) // Example: 10 pages max
+    {
+        if (i == ViewBag.Page)
+        {
+            <span>@i</span>
+        }
+        else
+        {
+            <a href="?page=@i&name=@ViewBag.NameFilter&title=@ViewBag.TitleFilter&sortColumn=@ViewBag.SortColumn&sortOrder=@ViewBag.SortOrder">@i</a>
+        }
+    }
+</div>

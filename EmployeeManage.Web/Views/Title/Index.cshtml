@@ -1,0 +1,22 @@
+﻿@model IEnumerable<EmployeeManage.Common.Models.TitleSalaryInfo>
+@{
+    Layout = "_Layout";
+}
+
+<h2>Title List</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr><th>Title</th><th>Min Salary</th><th>Max Salary</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model)
+        {
+            <tr>
+                <td>@t.Title</td>
+                <td>@String.Format("{0:C}", t.MinSalary)</td>
+                <td>@String.Format("{0:C}", t.MaxSalary)</td>
+            </tr>
+        }
+    </tbody>
+</table>

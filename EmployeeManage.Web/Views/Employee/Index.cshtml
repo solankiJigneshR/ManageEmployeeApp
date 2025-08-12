@@ -1,0 +1,47 @@
+﻿@model IEnumerable<EmployeeManage.Common.Models.Employee>
+@{
+    Layout = "_Layout";
+    var nameFilter = ViewData["NameFilter"] as string;
+    var titleFilter = ViewData["TitleFilter"] as string;
+}
+
+<h2>Employee List</h2>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-md-4">
+        <input class="form-control" name="name" placeholder="Search by name" value="@nameFilter" />
+    </div>
+    <div class="col-md-4">
+        <input class="form-control" name="title" placeholder="Search by title" value="@titleFilter" />
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a href="/Employee" class="btn btn-outline-secondary">Reset</a>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>EmployeeID</th>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Current Salary</th>
+            <th>Join Date</th>
+            <th>Exit Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.EmployeeID</td>
+                <td>@e.Name</td>
+                <td>@e.CurrentTitle</td>
+                <td>@String.Format("{0:C}", e.CurrentSalary)</td>
+                <td>@e.JoinDate.ToString("yyyy-MM-dd")</td>
+                <td>@(e.ExitDate.HasValue ? e.ExitDate.Value.ToString("yyyy-MM-dd") : "-")</td>
+            </tr>
+        }
+    </tbody>
+</table>
